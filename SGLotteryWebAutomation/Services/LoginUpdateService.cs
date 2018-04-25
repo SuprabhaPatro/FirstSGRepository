@@ -70,8 +70,9 @@ namespace SGLotteryWebAutomation.Services
         {
             Dictionary<String, String> GlobalTestData = new Dictionary<String, String>();
             GlobalTestData = GlobalDataFromDB();
-           //driver.Navigate().GoToUrl("https://google.com");
-            driver.GoToURL(GlobalTestData["URL"]);
+           // driver.Navigate().GoToUrl("https://google.com");
+         // driver.Navigate().GoToUrl("https://www.qts.uat.masslotteryplayersclub.com/login/index.php");
+          driver.GoToURL(GlobalTestData["URL"]);
             loginPageElements.userNameTextBox.EnterText(driver, GlobalTestData["username"]);
             loginPageElements.passwordTextBox.EnterText(driver, GlobalTestData["password"]);
             loginPageElements.loginButton.Click(driver);
@@ -140,6 +141,21 @@ namespace SGLotteryWebAutomation.Services
             IWebElement Msg = loginPageElements.CustomFindElement(TypeCase, driver);
             Assert.AreEqual(messInfo, Msg.Text);
 
+        }
+
+
+        public void getScreenShotWeb(IWebDriver driver, long testCaseId)
+        {
+
+            Screenshot image = ((ITakesScreenshot)driver).GetScreenshot();
+            //Save the screenshot
+            image.SaveAsFile(string.Format("D:\\screeshotsd_demo\\Screenshot{0}.Png", getcurrentTime() + " " + testCaseId), ScreenshotImageFormat.Jpeg);
+
+        }
+        public string getcurrentTime()
+        {
+            string currentTime = string.Format("{0:yyyy-MM-dd_hh-mm-ss-tt}", DateTime.Now);
+            return currentTime;
         }
     
     }

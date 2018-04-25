@@ -24,8 +24,19 @@ namespace SGLotteryWebAutomation.TestScenarios
 
         override public void Execute(long testScenarioId, long testCaseId, string testCaseName)
         {
-            InitDriver();
-            loginService.Login(driver);
+            try
+            {
+                InitDriver();
+                loginService.Login(driver); 
+               
+                
+            }
+            catch (Exception e)
+            {
+                loginService.getScreenShotWeb(driver, testCaseId);
+                throw e;
+            }
+            
             //updateService.Update(driver);
         }
 
